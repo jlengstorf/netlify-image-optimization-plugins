@@ -1,0 +1,22 @@
+{
+  "name": "site",
+  "version": "0.0.1",
+  "main": "gatsby-config.js",
+  "author": "Jason Lengstorf <jason@lengstorf.com> (https://lengstorf.com)",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.5.1",
+    "@mdx-js/react": "^1.5.1",
+    "gatsby": "^2.18.11",
+    "gatsby-plugin-mdx": "^1.0.62",
+    "gatsby-plugin-sharp": "^2.3.7",
+    "gatsby-source-filesystem": "^2.1.42",
+    "gatsby-transformer-sharp": "^2.3.9",
+    "netlify-plugin-use-cloudinary": "*",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
