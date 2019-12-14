@@ -5,6 +5,7 @@
     "site"
   ],
   "scripts": {
-    "develop": "yarn workspace site develop"
+    "develop": "yarn workspace site develop",
+    "build": "yarn workspace site build"
   }
 }

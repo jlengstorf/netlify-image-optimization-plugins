@@ -3,5 +3,19 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "Jason Lengstorf <jason@lengstorf.com> (https://lengstorf.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@blocks/serializer": "^0.0.28",
+    "glob": "^7.1.6",
+    "immutable": "^4.0.0-rc.12",
+    "rehype-local-image-to-cloudinary": "*",
+    "rehype-parse": "^6.0.2",
+    "rehype-stringify": "^6.0.1",
+    "remark-local-image-to-cloudinary": "*",
+    "remark-mdx": "^1.5.1",
+    "remark-parse": "^7.0.2",
+    "remark-rehype": "^5.0.0",
+    "remark-stringify": "^7.0.4",
+    "unified": "^8.4.2"
+  }
 }
