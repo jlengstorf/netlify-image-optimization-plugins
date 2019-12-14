@@ -1,0 +1,14 @@
+{
+  "name": "remark-local-image-to-cloudinary",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Jason Lengstorf <jason@lengstorf.com> (https://lengstorf.com)",
+  "license": "MIT",
+  "dependencies": {
+    "@blocks/serializer": "^0.0.28",
+    "cloudinary": "^1.18.1",
+    "md5-file": "^4.0.0",
+    "remark-stringify": "^7.0.4",
+    "unist-util-visit": "^2.0.1"
+  }
+}
