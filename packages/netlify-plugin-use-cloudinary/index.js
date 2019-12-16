@@ -9,20 +9,42 @@ const withDefaults = config =>
   );
 
 const fs = require('fs');
-const path = require('path');
+const unified = require('unified');
+const remarkParse = require('remark-parse');
+const remarkSqueezeParagraphs = require('remark-squeeze-paragraphs');
+const remarkInterleave = require('./util/remark-interleave');
+const mdx = require('remark-mdx');
 const useCloudinary = require('remark-local-image-to-cloudinary');
-const { parseMDX, stringifyMDX } = require('@blocks/serializer');
+const remarkStringify = require('remark-stringify');
 
-const astSmasher = async filepath => {
-  // TODO port this over so we can add the cloudinary plugin
-  // https://github.com/blocks/blocks/blob/4fa5593bb4b7c95d7dae928372492860b69706a1/packages/mdx/serializer/src/index.js#L13-L33
-  const contents = await parseMDX(fs.readFileSync(filepath));
+const parser = unified()
+  .use(remarkParse, {
+    commonmark: true,
+    position: false,
+  })
+  .use(remarkSqueezeParagraphs)
+  .use(remarkInterleave)
+  .use(mdx)
+  .use(useCloudinary, {
+    baseDir: 'site/src/pages',
+  });
 
-  console.log(contents);
+const stringifier = unified()
+  .use(remarkStringify, {
+    fences: true,
+  })
+  .use(remarkSqueezeParagraphs)
+  .use(mdx);
+
+const parseMDX = md => parser.run(parser.parse(md));
+const stringifyMDX = mdast => stringifier.stringify(stringifier.runSync(mdast));
+
+const convertLocalImagesToCloudinary = async filepath => {
+  const mdast = await parseMDX(fs.readFileSync(filepath));
 
   fs.writeFileSync(
     `${process.cwd()}/processed/updated.mdx`,
-    stringifyMDX(contents),
+    stringifyMDX(mdast),
   );
 };
 
@@ -31,11 +53,9 @@ module.exports = () => ({
   name: 'netlify-plugin-use-cloudinary',
   onPreBuild: async ({ pluginConfig }) => {
     const { srcDirectory } = withDefaults(pluginConfig);
-
     const files = glob.sync(`${srcDirectory}/**/*.mdx`);
 
-    const promises = files.map(file => astSmasher(file));
-
-    return await Promise.all(promises);
+    // run all file conversions in parallel and wait for all to complete
+    return await Promise.all(files.map(convertLocalImagesToCloudinary));
   },
 });

@@ -7,8 +7,8 @@ module.exports = ({
   baseDir,
   uploadFolder = 'netlify',
   transformations = 'f_auto,q_auto',
-}) => tree => {
-  return new Promise(async (resolve, reject) => {
+}) => tree =>
+  new Promise(async (resolve, reject) => {
     const convertToCloudinary = async node => {
       const imagePath = path.join(baseDir, node.properties.src);
 
@@ -51,4 +51,3 @@ module.exports = ({
 
     visit(tree, node => node.tagName === 'img', convertToCloudinary);
   });
-};

@@ -8,10 +8,10 @@ module.exports = ({
   uploadFolder = 'netlify',
   transformations = 'f_auto,q_auto',
   maxWidth = 1800,
-}) => tree => {
-  return new Promise(async (resolve, reject) => {
+}) => tree =>
+  new Promise(async (resolve, reject) => {
     const convertToCloudinary = async node => {
-      const imagePath = path.join(baseDir, node.url);
+      const imagePath = path.join(process.cwd(), baseDir, node.url);
 
       try {
         // upload the local image to Cloudinary
@@ -35,4 +35,3 @@ module.exports = ({
 
     visit(tree, node => node.type === 'image', convertToCloudinary);
   });
-};

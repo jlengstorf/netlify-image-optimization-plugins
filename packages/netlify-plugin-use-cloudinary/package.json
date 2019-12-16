@@ -15,6 +15,7 @@
     "remark-mdx": "^1.5.1",
     "remark-parse": "^7.0.2",
     "remark-rehype": "^5.0.0",
+    "remark-squeeze-paragraphs": "^3.0.4",
     "remark-stringify": "^7.0.4",
     "unified": "^8.4.2"
   }
